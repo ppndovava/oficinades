@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://diowgriv72ajy"]
+
+[ext_resource type="Script" path="res://Script/Inimigo/hurtbox.gd" id="1_860e2"]
+
+[node name="Hurtbox" type="Area2D"]
+collision_layer = 16
+script = ExtResource("1_860e2")

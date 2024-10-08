@@ -1,0 +1,164 @@
+[gd_scene load_steps=11 format=3 uid="uid://dyg0tocaq77o4"]
+
+[ext_resource type="Texture2D" uid="uid://b220ud3wdmetv" path="res://Assets/Enemies/Baby Monster.png" id="1_b8ngp"]
+[ext_resource type="Script" path="res://Script/Inimigo/inimigo_1.gd" id="1_re7re"]
+[ext_resource type="PackedScene" uid="uid://cy71veemq2s0g" path="res://Cenas/Inimigo/hitbox.tscn" id="3_08p63"]
+[ext_resource type="PackedScene" uid="uid://diowgriv72ajy" path="res://Cenas/Inimigo/hurtbox.tscn" id="4_321tu"]
+
+[sub_resource type="Animation" id="Animation_pu508"]
+resource_name = "Default"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:hframes")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [4]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite:vframes")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [1]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite:frame")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.6, 0.9),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Shape:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.6, 0.9),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [Vector2(0, 0), Vector2(0, 35), Vector2(0, 0), Vector2(0, 35)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Shape2:position")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.6, 0.9),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [Vector2(-41, 35), Vector2(-41, 0), Vector2(-41, 35), Vector2(-41, 0)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Shape3:position")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.6, 0.9),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [Vector2(43, 35), Vector2(43, 0), Vector2(43, 35), Vector2(43, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_wilfa"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [1]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_nkm43"]
+_data = {
+"Default": SubResource("Animation_pu508"),
+"RESET": SubResource("Animation_wilfa")
+}
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_2i6f7"]
+radius = 13.0
+height = 48.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_tk82d"]
+size = Vector2(119, 84)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vkt0r"]
+size = Vector2(50, 117)
+
+[node name="Inimigo" type="CharacterBody2D" groups=["Enemies"]]
+collision_layer = 2
+collision_mask = 5
+script = ExtResource("1_re7re")
+
+[node name="Sprite" type="Sprite2D" parent="."]
+texture_filter = 3
+texture = ExtResource("1_b8ngp")
+hframes = 4
+frame = 1
+
+[node name="Anim" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_nkm43")
+}
+autoplay = "Default"
+
+[node name="Shape" type="CollisionShape2D" parent="."]
+position = Vector2(0, 35)
+shape = SubResource("CapsuleShape2D_2i6f7")
+
+[node name="Shape2" type="CollisionShape2D" parent="."]
+position = Vector2(-41, 0)
+shape = SubResource("CapsuleShape2D_2i6f7")
+
+[node name="Shape3" type="CollisionShape2D" parent="."]
+position = Vector2(43, 0)
+shape = SubResource("CapsuleShape2D_2i6f7")
+
+[node name="Ray2D" type="RayCast2D" parent="."]
+position = Vector2(-41, 35)
+scale = Vector2(7, 7)
+target_position = Vector2(-5, 0)
+collision_mask = 5
+
+[node name="Hitbox" parent="." instance=ExtResource("3_08p63")]
+
+[node name="Shape" type="CollisionShape2D" parent="Hitbox"]
+position = Vector2(4.5, 16)
+shape = SubResource("RectangleShape2D_tk82d")
+debug_color = Color(0.86368, 0, 0.158042, 0.42)
+
+[node name="Hurtbox" parent="." instance=ExtResource("4_321tu")]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
+position = Vector2(4.5, -1)
+rotation = 1.5708
+shape = SubResource("RectangleShape2D_vkt0r")
+
+[connection signal="body_entered" from="Hurtbox" to="Hurtbox" method="_on_body_entered"]

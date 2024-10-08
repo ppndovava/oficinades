@@ -1,0 +1,92 @@
+[gd_scene load_steps=9 format=3 uid="uid://bgj7h5hx5ian1"]
+
+[ext_resource type="Texture2D" uid="uid://jeh5qficlpg3" path="res://Assets/Cenario.png" id="1_g27xy"]
+[ext_resource type="PackedScene" uid="uid://cdd4j4eb1kav6" path="res://Cenas/Player/Player.tscn" id="2_eu5gm"]
+[ext_resource type="PackedScene" uid="uid://dyg0tocaq77o4" path="res://Cenas/Inimigo/inimigo_1.tscn" id="3_xucpn"]
+[ext_resource type="StyleBox" uid="uid://cbsj254di5wle" path="res://Recursos/Bg.tres" id="4_acdrs"]
+[ext_resource type="StyleBox" uid="uid://b2q13avlneg5l" path="res://Recursos/Fill.tres" id="5_4r308"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_e7ebr"]
+size = Vector2(1277, 37)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_r5kp2"]
+size = Vector2(720, 10)
+
+[sub_resource type="LabelSettings" id="LabelSettings_jhewo"]
+font_size = 24
+outline_size = 6
+outline_color = Color(0, 0, 0, 1)
+
+[node name="Level_one" type="Node2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_g27xy")
+centered = false
+
+[node name="Static" type="StaticBody2D" parent="."]
+collision_layer = 4
+collision_mask = 3
+
+[node name="Shape" type="CollisionShape2D" parent="Static"]
+position = Vector2(640, 18.5)
+shape = SubResource("RectangleShape2D_e7ebr")
+
+[node name="Shape2" type="CollisionShape2D" parent="Static"]
+position = Vector2(640.5, 700)
+shape = SubResource("RectangleShape2D_e7ebr")
+
+[node name="Shape3" type="CollisionShape2D" parent="Static"]
+position = Vector2(1275, 359)
+rotation = 1.5708
+shape = SubResource("RectangleShape2D_r5kp2")
+
+[node name="Shape4" type="CollisionShape2D" parent="Static"]
+position = Vector2(0, 359)
+rotation = 1.5708
+shape = SubResource("RectangleShape2D_r5kp2")
+
+[node name="Player" parent="." node_paths=PackedStringArray("lifebar", "labelBar") groups=["Player"] instance=ExtResource("2_eu5gm")]
+position = Vector2(107, 217)
+scale = Vector2(1.8, 1.8)
+vel = 400.0
+gravity = 2000.0
+jump = -850.0
+lifebar = NodePath("../Tela/Barra")
+labelBar = NodePath("../Tela/Label")
+
+[node name="Timer" type="Timer" parent="Player"]
+wait_time = 3.0
+autostart = true
+
+[node name="Inimigo" parent="." instance=ExtResource("3_xucpn")]
+position = Vector2(596, 561)
+scale = Vector2(1.8, 1.8)
+
+[node name="Tela" type="CanvasLayer" parent="."]
+
+[node name="Barra" type="ProgressBar" parent="Tela"]
+offset_left = 61.0
+offset_top = 44.0
+offset_right = 311.0
+offset_bottom = 94.0
+size_flags_horizontal = 3
+size_flags_vertical = 2
+theme_override_styles/background = ExtResource("4_acdrs")
+theme_override_styles/fill = ExtResource("5_4r308")
+max_value = 250.0
+value = 250.0
+show_percentage = false
+
+[node name="Label" type="Label" parent="Tela"]
+offset_left = 142.0
+offset_top = 49.0
+offset_right = 242.0
+offset_bottom = 89.0
+label_settings = SubResource("LabelSettings_jhewo")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[connection signal="timeout" from="Player/Timer" to="Player" method="_on_timer_timeout"]
+
+[editable path="Player"]
+[editable path="Inimigo"]

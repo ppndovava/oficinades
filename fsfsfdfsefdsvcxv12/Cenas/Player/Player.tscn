@@ -1,0 +1,77 @@
+[gd_scene load_steps=13 format=3 uid="uid://cdd4j4eb1kav6"]
+
+[ext_resource type="Script" path="res://Script/Player/Player.gd" id="1_mmx43"]
+[ext_resource type="Texture2D" uid="uid://c0evj0yumndeg" path="res://Assets/Surfista/surfista_0001.webp" id="1_ptwjw"]
+[ext_resource type="Texture2D" uid="uid://b22g1g83rj12t" path="res://Assets/Surfista/surfista_0002.webp" id="3_3dsjx"]
+[ext_resource type="Texture2D" uid="uid://b6un555mdfbxt" path="res://Assets/Surfista/surfista_0003.webp" id="4_8fm24"]
+[ext_resource type="Texture2D" uid="uid://bfub4yai5qpu2" path="res://Assets/Surfista/surfista_0004.webp" id="5_hec74"]
+[ext_resource type="Texture2D" uid="uid://beldqj5jl8k6o" path="res://Assets/Surfista/surfista_0005.webp" id="6_qv3e8"]
+[ext_resource type="Texture2D" uid="uid://brbcmkjk7js5o" path="res://Assets/Surfista/surfista_0006.webp" id="7_2itlh"]
+[ext_resource type="PackedScene" uid="uid://diowgriv72ajy" path="res://Cenas/Inimigo/hurtbox.tscn" id="8_ueyrf"]
+[ext_resource type="Script" path="res://Script/Player/Onde_Atirar.gd" id="9_xl872"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_n5vul"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_ptwjw")
+}],
+"loop": true,
+"name": &"Idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_3dsjx")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_8fm24")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_hec74")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_qv3e8")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_2itlh")
+}],
+"loop": true,
+"name": &"Walk",
+"speed": 5.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_2vom7"]
+radius = 23.0
+height = 120.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0nt68"]
+size = Vector2(50, 117)
+
+[node name="Player" type="CharacterBody2D"]
+collision_mask = 14
+script = ExtResource("1_mmx43")
+
+[node name="Anim" type="AnimatedSprite2D" parent="."]
+texture_filter = 3
+sprite_frames = SubResource("SpriteFrames_n5vul")
+animation = &"Idle"
+
+[node name="Shape" type="CollisionShape2D" parent="."]
+position = Vector2(-5, 3)
+shape = SubResource("CapsuleShape2D_2vom7")
+
+[node name="Hurtbox" parent="." instance=ExtResource("8_ueyrf")]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
+position = Vector2(-5, 1.5)
+shape = SubResource("RectangleShape2D_0nt68")
+debug_color = Color(0.964513, 1.05888e-06, 0.492305, 0.42)
+
+[node name="Onde_Atirar" type="Node2D" parent="."]
+script = ExtResource("9_xl872")
+
+[node name="Marker2D" type="Marker2D" parent="Onde_Atirar"]
+position = Vector2(22, 0)
+
+[connection signal="body_entered" from="Hurtbox" to="." method="_on_hurtbox_body_entered"]
