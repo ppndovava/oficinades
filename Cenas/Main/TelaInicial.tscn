@@ -1,15 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://bsjicg4tl288o"]
+[gd_scene load_steps=5 format=3 uid="uid://bsjicg4tl288o"]
 
 [ext_resource type="Texture2D" uid="uid://c0uxu3g3ef4wm" path="res://Assets/Screen Initial.png" id="1_gyxgq"]
 [ext_resource type="Script" path="res://Script/Main/TelaInicial.gd" id="1_wiy41"]
-
-[sub_resource type="LabelSettings" id="LabelSettings_xkkt0"]
-font_size = 36
-font_color = Color(1, 0.827451, 0, 1)
-outline_size = 8
-outline_color = Color(1, 0.545098, 0, 1)
-shadow_size = 13
-shadow_color = Color(0, 0, 0, 1)
+[ext_resource type="Texture2D" uid="uid://b3feihfm562eu" path="res://Assets/botao (começar).png" id="3_02gl3"]
+[ext_resource type="Texture2D" uid="uid://bcorxvuph3hp1" path="res://Assets/botao (leave).png" id="4_tohtq"]
 
 [node name="Screen" type="Control"]
 layout_mode = 3
@@ -29,11 +23,34 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("1_gyxgq")
 
-[node name="Label" type="Label" parent="."]
-layout_mode = 0
-offset_left = 32.0
-offset_top = 577.0
-offset_right = 480.0
-offset_bottom = 627.0
-text = "Press Enter to Start Game"
-label_settings = SubResource("LabelSettings_xkkt0")
+[node name="Começar" type="TextureButton" parent="."]
+layout_mode = 2
+offset_left = 80.0
+offset_top = 575.0
+offset_right = 1142.0
+offset_bottom = 968.0
+scale = Vector2(0.25, 0.25)
+texture_normal = ExtResource("3_02gl3")
+
+[node name="Creditos" type="TextureButton" parent="."]
+layout_mode = 2
+offset_left = 395.0
+offset_top = 575.0
+offset_right = 1457.0
+offset_bottom = 968.0
+scale = Vector2(0.25, 0.25)
+texture_normal = ExtResource("3_02gl3")
+
+[node name="Sair" type="TextureButton" parent="."]
+layout_mode = 2
+offset_left = 720.0
+offset_top = 575.0
+offset_right = 1396.0
+offset_bottom = 968.0
+scale = Vector2(0.4, 0.4)
+size_flags_horizontal = 3
+texture_normal = ExtResource("4_tohtq")
+
+[connection signal="pressed" from="Começar" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="Creditos" to="." method="_on_creditos_pressed"]
+[connection signal="pressed" from="Sair" to="." method="_on_sair_pressed"]

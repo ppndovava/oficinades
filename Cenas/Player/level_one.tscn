@@ -1,10 +1,33 @@
-[gd_scene load_steps=9 format=3 uid="uid://bgj7h5hx5ian1"]
+[gd_scene load_steps=11 format=3 uid="uid://bgj7h5hx5ian1"]
 
 [ext_resource type="Texture2D" uid="uid://jeh5qficlpg3" path="res://Assets/Cenario.png" id="1_g27xy"]
 [ext_resource type="PackedScene" uid="uid://cdd4j4eb1kav6" path="res://Cenas/Player/Player.tscn" id="2_eu5gm"]
 [ext_resource type="PackedScene" uid="uid://dyg0tocaq77o4" path="res://Cenas/Inimigo/inimigo_1.tscn" id="3_xucpn"]
 [ext_resource type="StyleBox" uid="uid://cbsj254di5wle" path="res://Recursos/Bg.tres" id="4_acdrs"]
 [ext_resource type="StyleBox" uid="uid://b2q13avlneg5l" path="res://Recursos/Fill.tres" id="5_4r308"]
+
+[sub_resource type="GDScript" id="GDScript_j05lj"]
+script/source = "extends Node2D
+
+@onready var label = $Tela/Pontos
+@export var packed:PackedScene
+@onready var tempo = $Spawn
+func _physics_process(delta):
+	label.text = str(Global.pontos,\" Pontos\")
+	if Global.pontos >= 10:
+		get_tree().change_scene_to_file(\"res://Cenas/Main/Victory.tscn\")
+		Global.pontos = 0
+func spawn_enemy():
+	var pack = packed.instantiate()
+	pack.global_position = Vector2(randf_range(500,596),200)
+	pack.scale = Vector2(1.8,1.8)
+	get_parent().add_child(pack)
+	pack.add_to_group(\"Enemies\")
+
+
+func _on_spawn_timeout():
+	spawn_enemy()
+"
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_e7ebr"]
 size = Vector2(1277, 37)
@@ -17,7 +40,14 @@ font_size = 24
 outline_size = 6
 outline_color = Color(0, 0, 0, 1)
 
+[sub_resource type="LabelSettings" id="LabelSettings_181hi"]
+font_size = 32
+outline_size = 16
+outline_color = Color(0, 0, 0, 1)
+
 [node name="Level_one" type="Node2D"]
+script = SubResource("GDScript_j05lj")
+packed = ExtResource("3_xucpn")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("1_g27xy")
@@ -46,21 +76,13 @@ rotation = 1.5708
 shape = SubResource("RectangleShape2D_r5kp2")
 
 [node name="Player" parent="." node_paths=PackedStringArray("lifebar", "labelBar") groups=["Player"] instance=ExtResource("2_eu5gm")]
-position = Vector2(107, 217)
+position = Vector2(87, 254)
 scale = Vector2(1.8, 1.8)
 vel = 400.0
 gravity = 2000.0
 jump = -850.0
 lifebar = NodePath("../Tela/Barra")
 labelBar = NodePath("../Tela/Label")
-
-[node name="Timer" type="Timer" parent="Player"]
-wait_time = 3.0
-autostart = true
-
-[node name="Inimigo" parent="." instance=ExtResource("3_xucpn")]
-position = Vector2(596, 561)
-scale = Vector2(1.8, 1.8)
 
 [node name="Tela" type="CanvasLayer" parent="."]
 
@@ -86,7 +108,24 @@ label_settings = SubResource("LabelSettings_jhewo")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[connection signal="timeout" from="Player/Timer" to="Player" method="_on_timer_timeout"]
+[node name="Pontos" type="Label" parent="Tela"]
+offset_left = 64.0
+offset_top = 100.0
+offset_right = 104.0
+offset_bottom = 145.0
+text = "0"
+label_settings = SubResource("LabelSettings_181hi")
+
+[node name="Spawn" type="Timer" parent="."]
+wait_time = 0.2
+one_shot = true
+autostart = true
+
+[node name="Spawn2" type="Timer" parent="."]
+wait_time = 3.5
+autostart = true
+
+[connection signal="timeout" from="Spawn" to="." method="_on_spawn_timeout"]
+[connection signal="timeout" from="Spawn2" to="." method="_on_spawn_timeout"]
 
 [editable path="Player"]
-[editable path="Inimigo"]

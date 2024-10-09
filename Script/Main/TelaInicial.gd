@@ -1,11 +1,13 @@
 extends Control
-@onready var label = $Label
-var packed:PackedScene = preload("res://Cenas/Player/level_one.tscn")
 
-func _ready():
-	label.visible = true
+func _on_button_pressed():
+	get_tree().change_scene_to_file("res://Cenas/Player/level_one.tscn")
 
-func _physics_process(delta):
-	if Input.is_action_just_pressed("Enter"):
-		label.visible = false
-		get_tree().change_scene_to_packed(packed)
+
+func _on_creditos_pressed():
+	pass # Replace with function body.
+
+
+
+func _on_sair_pressed():
+	get_tree().quit()
