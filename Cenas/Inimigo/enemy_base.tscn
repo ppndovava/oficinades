@@ -1,0 +1,169 @@
+[gd_scene load_steps=9 format=3 uid="uid://b5bgmg1lfiwjc"]
+
+[ext_resource type="Script" path="res://Script/Inimigo/enemy_base.gd" id="1_eyuqq"]
+[ext_resource type="Texture2D" uid="uid://nwfpuvhnibm" path="res://Assets/Enemies/Enemy_Base.png" id="1_p6ugv"]
+[ext_resource type="PackedScene" uid="uid://dyg0tocaq77o4" path="res://Cenas/Inimigo/inimigo_1.tscn" id="2_hxkce"]
+
+[sub_resource type="Animation" id="Animation_13o65"]
+resource_name = "Attack"
+length = 1.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Texture:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("1_p6ugv")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Texture:hframes")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [6]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Texture:vframes")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [1]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Texture:frame")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.6, 0.9, 1.2),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [1, 2, 3, 4, 5]
+}
+
+[sub_resource type="Animation" id="Animation_dt16l"]
+resource_name = "Idle"
+length = 0.3
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Texture:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("1_p6ugv")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Texture:hframes")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [6]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Texture:vframes")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [1]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Texture:frame")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_klk64"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Texture:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [1]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_akt67"]
+_data = {
+"Attack": SubResource("Animation_13o65"),
+"Idle": SubResource("Animation_dt16l"),
+"RESET": SubResource("Animation_klk64")
+}
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_35h07"]
+size = Vector2(30, 39)
+
+[node name="Enemy_Base" type="CharacterBody2D"]
+collision_layer = 128
+collision_mask = 7
+script = ExtResource("1_eyuqq")
+inimigo = ExtResource("2_hxkce")
+
+[node name="Texture" type="Sprite2D" parent="."]
+texture_filter = 3
+texture = ExtResource("1_p6ugv")
+hframes = 6
+frame = 1
+
+[node name="Anim" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_akt67")
+}
+autoplay = "Idle"
+
+[node name="Shape" type="CollisionShape2D" parent="."]
+position = Vector2(-1, 7.5)
+shape = SubResource("RectangleShape2D_35h07")
+
+[node name="Tempo" type="Timer" parent="."]
+wait_time = 2.0
+
+[node name="Change" type="Timer" parent="."]
+wait_time = 1.5
+
+[node name="Position" type="Marker2D" parent="."]
+position = Vector2(-33, -25)
+
+[connection signal="timeout" from="Tempo" to="." method="_on_tempo_timeout"]
+[connection signal="timeout" from="Change" to="." method="_on_change_timeout"]

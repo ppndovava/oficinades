@@ -1,12 +1,9 @@
+res://Cenas/Inimigo/enemy_base.tscn
+res://Script/Inimigo/enemy_base.gd
 res://Cenas/Main/TelaInicial.tscn
-res://Script/Main/TelaInicial.gd
 res://Cenas/Player/level_one.tscn
-res://Script/Player/Player.gd
-res://Script/Inimigo/hitbox.gd
 res://Cenas/Main/defeat.tscn
 res://Cenas/Main/Victory.tscn
-res://Script/Global.gd
-res://Script/Inimigo/hurtbox.gd
-res://Global.gd
 res://Cenas/Inimigo/inimigo_1.tscn
 res://Cenas/Inimigo/hurtbox.tscn
+res://Script/Inimigo/inimigo_1.gd

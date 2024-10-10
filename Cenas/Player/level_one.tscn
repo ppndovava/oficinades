@@ -2,31 +2,19 @@
 
 [ext_resource type="Texture2D" uid="uid://jeh5qficlpg3" path="res://Assets/Cenario.png" id="1_g27xy"]
 [ext_resource type="PackedScene" uid="uid://cdd4j4eb1kav6" path="res://Cenas/Player/Player.tscn" id="2_eu5gm"]
-[ext_resource type="PackedScene" uid="uid://dyg0tocaq77o4" path="res://Cenas/Inimigo/inimigo_1.tscn" id="3_xucpn"]
 [ext_resource type="StyleBox" uid="uid://cbsj254di5wle" path="res://Recursos/Bg.tres" id="4_acdrs"]
+[ext_resource type="PackedScene" uid="uid://b5bgmg1lfiwjc" path="res://Cenas/Inimigo/enemy_base.tscn" id="5_2pkle"]
 [ext_resource type="StyleBox" uid="uid://b2q13avlneg5l" path="res://Recursos/Fill.tres" id="5_4r308"]
 
 [sub_resource type="GDScript" id="GDScript_j05lj"]
 script/source = "extends Node2D
 
 @onready var label = $Tela/Pontos
-@export var packed:PackedScene
-@onready var tempo = $Spawn
 func _physics_process(delta):
 	label.text = str(Global.pontos,\" Pontos\")
 	if Global.pontos >= 10:
 		get_tree().change_scene_to_file(\"res://Cenas/Main/Victory.tscn\")
 		Global.pontos = 0
-func spawn_enemy():
-	var pack = packed.instantiate()
-	pack.global_position = Vector2(randf_range(500,596),200)
-	pack.scale = Vector2(1.8,1.8)
-	get_parent().add_child(pack)
-	pack.add_to_group(\"Enemies\")
-
-
-func _on_spawn_timeout():
-	spawn_enemy()
 "
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_e7ebr"]
@@ -47,7 +35,6 @@ outline_color = Color(0, 0, 0, 1)
 
 [node name="Level_one" type="Node2D"]
 script = SubResource("GDScript_j05lj")
-packed = ExtResource("3_xucpn")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("1_g27xy")
@@ -55,7 +42,7 @@ centered = false
 
 [node name="Static" type="StaticBody2D" parent="."]
 collision_layer = 4
-collision_mask = 3
+collision_mask = 139
 
 [node name="Shape" type="CollisionShape2D" parent="Static"]
 position = Vector2(640, 18.5)
@@ -116,16 +103,8 @@ offset_bottom = 145.0
 text = "0"
 label_settings = SubResource("LabelSettings_181hi")
 
-[node name="Spawn" type="Timer" parent="."]
-wait_time = 0.2
-one_shot = true
-autostart = true
-
-[node name="Spawn2" type="Timer" parent="."]
-wait_time = 3.5
-autostart = true
-
-[connection signal="timeout" from="Spawn" to="." method="_on_spawn_timeout"]
-[connection signal="timeout" from="Spawn2" to="." method="_on_spawn_timeout"]
+[node name="Enemy_Base" parent="." instance=ExtResource("5_2pkle")]
+position = Vector2(1056, 134)
+scale = Vector2(6, 6)
 
 [editable path="Player"]

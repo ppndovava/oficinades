@@ -1,7 +1,8 @@
 ea4bc82a6ad023ab7ee23ee620429895
-::res://::1728483784
+::res://::1728553009
+Global.gd::GDScript::-1::1728485694::0::1::::<>Node<>::
 icon.svg::CompressedTexture2D::2739076096675143724::1728474153::1728476298::1::::<><>::
-::res://Assets/::1728483783
+::res://Assets/::1728483784
 botao (começar).png::CompressedTexture2D::4362287724624649760::1728477110::1728477133::1::::<><>::
 botao (leave).png::CompressedTexture2D::2556774056241281380::1728477831::1728483774::1::::<><>::
 botao (retornar).png::CompressedTexture2D::357024533900260130::1728483733::1728483784::1::::<><>::
@@ -11,8 +12,9 @@ game over_0002.png::CompressedTexture2D::3436648185196129786::1728483555::172848
 game over_0003.png::CompressedTexture2D::8942487322652780501::1728483555::1728483558::1::::<><>::
 Oro.png::CompressedTexture2D::1929655356247847125::1728474152::1728476298::1::::<><>::
 Screen Initial.png::CompressedTexture2D::6570283701330332372::1728474152::1728476298::1::::<><>::
-::res://Assets/Enemies/::1728476297
+::res://Assets/Enemies/::1728548402
 Baby Monster.png::CompressedTexture2D::4338811503805488251::1728474152::1728476297::1::::<><>::
+Enemy_Base.png::CompressedTexture2D::28182433323522758::1728548398::1728548402::1::::<><>::
 ::res://Assets/Surfista/::1728483741
 coco.png::CompressedTexture2D::5205895797229898706::1728474152::1728476297::1::::<><>::
 surfista_0001.webp::CompressedTexture2D::6537112449430809282::1728474152::1728476297::1::::<><>::
@@ -22,33 +24,35 @@ surfista_0004.webp::CompressedTexture2D::2778766222945090783::1728474152::172847
 surfista_0005.webp::CompressedTexture2D::2690095456699877804::1728474152::1728476297::1::::<><>::
 surfista_0006.webp::CompressedTexture2D::3581838806440336794::1728474152::1728476297::1::::<><>::
 ::res://Cenas/::1728474188
-::res://Cenas/Inimigo/::1728474188
+::res://Cenas/Inimigo/::1728552936
+enemy_base.tscn::PackedScene::4494536457883417084::1728552936::0::1::::<><>::res://Script/Inimigo/enemy_base.gd<>uid://nwfpuvhnibm::::res://Assets/Enemies/Enemy_Base.png<>uid://dyg0tocaq77o4::::res://Cenas/Inimigo/inimigo_1.tscn
 hitbox.tscn::PackedScene::6525050063153130616::1728474152::0::1::::<><>::res://Script/Inimigo/hitbox.gd
-hurtbox.tscn::PackedScene::7751021483598046658::1728474152::0::1::::<><>::res://Script/Inimigo/hurtbox.gd
-inimigo_1.tscn::PackedScene::8857733158258981113::1728474152::0::1::::<><>::uid://b220ud3wdmetv::::res://Assets/Enemies/Baby Monster.png<>res://Script/Inimigo/inimigo_1.gd<>uid://cy71veemq2s0g::::res://Cenas/Inimigo/hitbox.tscn<>uid://diowgriv72ajy::::res://Cenas/Inimigo/hurtbox.tscn
-::res://Cenas/Main/::1728483783
+hurtbox.tscn::PackedScene::7751021483598046658::1728552936::0::1::::<><>::res://Script/Inimigo/hurtbox.gd
+inimigo_1.tscn::PackedScene::8857733158258981113::1728552936::0::1::::<><>::uid://b220ud3wdmetv::::res://Assets/Enemies/Baby Monster.png<>res://Script/Inimigo/inimigo_1.gd<>uid://cy71veemq2s0g::::res://Cenas/Inimigo/hitbox.tscn<>uid://diowgriv72ajy::::res://Cenas/Inimigo/hurtbox.tscn
+::res://Cenas/Main/::1728552936
 bullet.tscn::PackedScene::710824334560424234::1728474152::0::1::::<><>::uid://cgf1lwyypu14a::::res://Assets/Surfista/coco.png<>res://Script/Main/bullet.gd
-defeat.tscn::PackedScene::6689637155997035873::1728483783::0::1::::<><>::uid://dexwf30qwqdxo::::res://Assets/game over_0001.png<>uid://bo70dgdkif1sg::::res://Assets/game over_0002.png<>uid://d0n2pvnw0u8ir::::res://Assets/game over_0003.png<>uid://bcorxvuph3hp1::::res://Assets/botao (leave).png<>uid://fc7e3bxkvrss::::res://Assets/botao (retornar).png
-TelaInicial.tscn::PackedScene::3668888937312665628::1728483773::0::1::::<><>::uid://c0uxu3g3ef4wm::::res://Assets/Screen Initial.png<>res://Script/Main/TelaInicial.gd<>uid://b3feihfm562eu::::res://Assets/botao (começar).png<>uid://bcorxvuph3hp1::::res://Assets/botao (leave).png
+defeat.tscn::PackedScene::6689637155997035873::1728552936::0::1::::<><>::uid://dexwf30qwqdxo::::res://Assets/game over_0001.png<>uid://bo70dgdkif1sg::::res://Assets/game over_0002.png<>uid://d0n2pvnw0u8ir::::res://Assets/game over_0003.png<>uid://bcorxvuph3hp1::::res://Assets/botao (leave).png<>uid://fc7e3bxkvrss::::res://Assets/botao (retornar).png
+TelaInicial.tscn::PackedScene::3668888937312665628::1728552935::0::1::::<><>::uid://c0uxu3g3ef4wm::::res://Assets/Screen Initial.png<>res://Script/Main/TelaInicial.gd<>uid://b3feihfm562eu::::res://Assets/botao (começar).png<>uid://bcorxvuph3hp1::::res://Assets/botao (leave).png
 transition.tscn::PackedScene::7188215204738816222::1728474152::0::1::::<><>::uid://b68vbdicofxu8::::res://Recursos/Shaders_Transition.tres
-Victory.tscn::PackedScene::7281717858086476913::1728474152::0::1::::<><>::res://Script/Main/TelaInicial.gd<>uid://jeh5qficlpg3::::res://Assets/Cenario.png<>uid://2q0e257yqmmn::::res://Assets/Oro.png
-::res://Cenas/Player/::1728483626
-level_one.tscn::PackedScene::2828090177233249428::1728483626::0::1::::<><>::uid://jeh5qficlpg3::::res://Assets/Cenario.png<>uid://cdd4j4eb1kav6::::res://Cenas/Player/Player.tscn<>uid://dyg0tocaq77o4::::res://Cenas/Inimigo/inimigo_1.tscn<>uid://cbsj254di5wle::::res://Recursos/Bg.tres<>uid://b2q13avlneg5l::::res://Recursos/Fill.tres
+Victory.tscn::PackedScene::7281717858086476913::1728552936::0::1::::<><>::uid://jeh5qficlpg3::::res://Assets/Cenario.png<>uid://2q0e257yqmmn::::res://Assets/Oro.png
+::res://Cenas/Player/::1728552936
+level_one.tscn::PackedScene::2828090177233249428::1728552936::0::1::::<><>::uid://jeh5qficlpg3::::res://Assets/Cenario.png<>uid://cdd4j4eb1kav6::::res://Cenas/Player/Player.tscn<>uid://cbsj254di5wle::::res://Recursos/Bg.tres<>uid://b5bgmg1lfiwjc::::res://Cenas/Inimigo/enemy_base.tscn<>uid://b2q13avlneg5l::::res://Recursos/Fill.tres
 Player.tscn::PackedScene::4991379425934795897::1728474152::0::1::::<><>::res://Script/Player/Player.gd<>uid://c0evj0yumndeg::::res://Assets/Surfista/surfista_0001.webp<>uid://b22g1g83rj12t::::res://Assets/Surfista/surfista_0002.webp<>uid://b6un555mdfbxt::::res://Assets/Surfista/surfista_0003.webp<>uid://bfub4yai5qpu2::::res://Assets/Surfista/surfista_0004.webp<>uid://beldqj5jl8k6o::::res://Assets/Surfista/surfista_0005.webp<>uid://brbcmkjk7js5o::::res://Assets/Surfista/surfista_0006.webp<>uid://diowgriv72ajy::::res://Cenas/Inimigo/hurtbox.tscn<>res://Script/Player/Onde_Atirar.gd
 ::res://Recursos/::1728474189
 Bg.tres::StyleBoxFlat::4880785300615675106::1728474153::0::1::::<><>::
 Fill.tres::StyleBoxFlat::4316178182984416943::1728474153::0::1::::<><>::
 Shaders_Transition.tres::Shader::4631676315036367341::1728474153::0::1::::<><>::
 Shape_Rect.tres::RectangleShape2D::1320880313072037190::1728474153::0::1::::<><>::
-::res://Script/::1728474189
-::res://Script/Inimigo/::1728481834
-hitbox.gd::GDScript::-1::1728481834::0::1::::<>Area2D<>::
-hurtbox.gd::GDScript::-1::1728474153::0::1::::<>Area2D<>::
+::res://Script/::1728485672
+::res://Script/Inimigo/::1728552931
+enemy_base.gd::GDScript::-1::1728552931::0::1::::<>CharacterBody2D<>::
+hitbox.gd::GDScript::-1::1728487469::0::1::::<>Area2D<>::
+hurtbox.gd::GDScript::-1::1728487515::0::1::::<>Area2D<>::
 inimigo_1.gd::GDScript::-1::1728474153::0::1::::<>CharacterBody2D<>::
-::res://Script/Main/::1728478497
+::res://Script/Main/::1728484151
 bullet.gd::GDScript::-1::1728474153::0::1::::<>Area2D<>::
-TelaInicial.gd::GDScript::-1::1728478497::0::1::::<>Control<>::
-::res://Script/Player/::1728481865
+TelaInicial.gd::GDScript::-1::1728484151::0::1::::<>Control<>::
+::res://Script/Player/::1728487087
 Onde_Atirar.gd::GDScript::-1::1728474153::0::1::::<>Node2D<>::
-Player.gd::GDScript::-1::1728481865::0::1::::Player<>CharacterBody2D<>::
+Player.gd::GDScript::-1::1728487087::0::1::::Player<>CharacterBody2D<>::
 ::res://Sound/::1728474253
