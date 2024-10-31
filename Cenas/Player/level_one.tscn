@@ -10,11 +10,10 @@
 script/source = "extends Node2D
 
 @onready var label = $Tela/Pontos
-func _physics_process(delta):
+func _physics_process(_delta):
 	label.text = str(Global.pontos,\" Pontos\")
-	if Global.pontos >= 10:
+	if $Enemy_Base.vida <= 0:
 		get_tree().change_scene_to_file(\"res://Cenas/Main/Victory.tscn\")
-		Global.pontos = 0
 "
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_e7ebr"]
@@ -65,11 +64,15 @@ shape = SubResource("RectangleShape2D_r5kp2")
 [node name="Player" parent="." node_paths=PackedStringArray("lifebar", "labelBar") groups=["Player"] instance=ExtResource("2_eu5gm")]
 position = Vector2(87, 254)
 scale = Vector2(1.8, 1.8)
+collision_mask = 142
 vel = 400.0
 gravity = 2000.0
 jump = -850.0
 lifebar = NodePath("../Tela/Barra")
 labelBar = NodePath("../Tela/Label")
+
+[node name="Hurtbox" parent="Player" index="2"]
+script = null
 
 [node name="Tela" type="CanvasLayer" parent="."]
 
@@ -108,3 +111,4 @@ position = Vector2(1056, 134)
 scale = Vector2(6, 6)
 
 [editable path="Player"]
+[editable path="Enemy_Base"]

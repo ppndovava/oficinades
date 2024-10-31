@@ -1,7 +1,8 @@
+AnimationPlayer
+Enemy_Base
 Timer
 Marker2D
 CollisionShape2D
-AnimationPlayer
 Sprite2D
 CharacterBody2D
 Label

@@ -1,17 +1,37 @@
-[gd_scene load_steps=13 format=3 uid="uid://cdd4j4eb1kav6"]
+[gd_scene load_steps=19 format=3 uid="uid://cdd4j4eb1kav6"]
 
 [ext_resource type="Script" path="res://Script/Player/Player.gd" id="1_mmx43"]
 [ext_resource type="Texture2D" uid="uid://c0evj0yumndeg" path="res://Assets/Surfista/surfista_0001.webp" id="1_ptwjw"]
+[ext_resource type="Texture2D" uid="uid://jv4ews0dsmxp" path="res://Assets/Surfista/surfista atacando_0001.png" id="2_dkxja"]
 [ext_resource type="Texture2D" uid="uid://b22g1g83rj12t" path="res://Assets/Surfista/surfista_0002.webp" id="3_3dsjx"]
+[ext_resource type="Texture2D" uid="uid://b45ksaivkq4bn" path="res://Assets/Surfista/surfista atacando_0002.png" id="3_ruoty"]
 [ext_resource type="Texture2D" uid="uid://b6un555mdfbxt" path="res://Assets/Surfista/surfista_0003.webp" id="4_8fm24"]
+[ext_resource type="Texture2D" uid="uid://cxm8rvne4i0sk" path="res://Assets/Surfista/surfista atacando_0003.png" id="4_teckv"]
+[ext_resource type="Texture2D" uid="uid://ewlxnx74o2ck" path="res://Assets/Surfista/surfista atacando_0004.png" id="5_f2eqb"]
 [ext_resource type="Texture2D" uid="uid://bfub4yai5qpu2" path="res://Assets/Surfista/surfista_0004.webp" id="5_hec74"]
 [ext_resource type="Texture2D" uid="uid://beldqj5jl8k6o" path="res://Assets/Surfista/surfista_0005.webp" id="6_qv3e8"]
 [ext_resource type="Texture2D" uid="uid://brbcmkjk7js5o" path="res://Assets/Surfista/surfista_0006.webp" id="7_2itlh"]
 [ext_resource type="PackedScene" uid="uid://diowgriv72ajy" path="res://Cenas/Inimigo/hurtbox.tscn" id="8_ueyrf"]
-[ext_resource type="Script" path="res://Script/Player/Onde_Atirar.gd" id="9_xl872"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_n5vul"]
 animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_dkxja")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_ruoty")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_teckv")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_f2eqb")
+}],
+"loop": false,
+"name": &"Attack",
+"speed": 5.0
+}, {
 "frames": [{
 "duration": 1.0,
 "texture": ExtResource("1_ptwjw")
@@ -48,6 +68,66 @@ height = 120.0
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0nt68"]
 size = Vector2(50, 117)
 
+[sub_resource type="Animation" id="Animation_1m511"]
+resource_name = "Attack"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Hurtbox/CollisionShape2D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Vector2(-25, 1.5)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Shape:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Vector2(-25, 3)]
+}
+
+[sub_resource type="Animation" id="Animation_0ey62"]
+resource_name = "Normal"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Shape:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Vector2(-5, 3)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Hurtbox/CollisionShape2D:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Vector2(-5, 1.5)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_us8lq"]
+_data = {
+"Attack": SubResource("Animation_1m511"),
+"Normal": SubResource("Animation_0ey62")
+}
+
 [node name="Player" type="CharacterBody2D"]
 collision_mask = 14
 script = ExtResource("1_mmx43")
@@ -55,7 +135,7 @@ script = ExtResource("1_mmx43")
 [node name="Anim" type="AnimatedSprite2D" parent="."]
 texture_filter = 3
 sprite_frames = SubResource("SpriteFrames_n5vul")
-animation = &"Idle"
+animation = &"Attack"
 
 [node name="Shape" type="CollisionShape2D" parent="."]
 position = Vector2(-5, 3)
@@ -69,9 +149,13 @@ shape = SubResource("RectangleShape2D_0nt68")
 debug_color = Color(0.964513, 1.05888e-06, 0.492305, 0.42)
 
 [node name="Onde_Atirar" type="Node2D" parent="."]
-script = ExtResource("9_xl872")
 
 [node name="Marker2D" type="Marker2D" parent="Onde_Atirar"]
 position = Vector2(22, 0)
+
+[node name="Colision_animator" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_us8lq")
+}
 
 [connection signal="body_entered" from="Hurtbox" to="." method="_on_hurtbox_body_entered"]

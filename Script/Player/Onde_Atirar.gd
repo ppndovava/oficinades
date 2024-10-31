@@ -9,7 +9,7 @@ func _physics_process(_delta):
 		var bala = bullet.instantiate() # criando a instância da bala
 		bala.rotation = rotation #definindo a rotação da bala
 		bala.global_position = $Marker2D.global_position #posição inicial da bala
-		get_tree().get_root().add_child(bala) #adicionando a bala na cena
+		get_parent().add_child(bala) #adicionando a bala na cena
 	if Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT) and shot_true: 
 		shot_true = false #impedindo o jogador de atirar até o tempo de recarga acabar
 		await get_tree().create_timer(1).timeout #tempo de recarga

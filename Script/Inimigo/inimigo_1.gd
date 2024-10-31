@@ -1,14 +1,14 @@
 extends CharacterBody2D
-
 enum {IDLE,WALK,ATTACK}
-var state = IDLE
+var estado = IDLE
 const SPEED = 40
 var dir = 1
-@onready var anim = $Anim
+@onready var anima = $Anim
 @onready var ray = $Ray2D
+@onready var inimigo_base = get_parent().get_node("Enemy_Base")
 var gravidade = 2000
 func _physics_process(delta):
-	anim.current_animation = "Default"
+	anima.current_animation = "Default"
 	if not is_on_floor():
 		velocity.y += gravidade * delta
 	velocity.x = SPEED * dir
@@ -26,6 +26,7 @@ func _physics_process(delta):
 		ray.target_position.x = 15
 	move_and_slide()
 
-
-
-
+func _on_hurtbox_body_entered(body):
+	if body.name == "Player":
+		queue_free()
+		inimigo_base.vida -= 5 

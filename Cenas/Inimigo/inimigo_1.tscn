@@ -161,4 +161,5 @@ position = Vector2(4.5, -1)
 rotation = 1.5708
 shape = SubResource("RectangleShape2D_vkt0r")
 
+[connection signal="body_entered" from="Hurtbox" to="." method="_on_hurtbox_body_entered"]
 [connection signal="body_entered" from="Hurtbox" to="Hurtbox" method="_on_body_entered"]

@@ -1,28 +1,35 @@
-extends CharacterBody2D
+class_name Enemy_Base extends CharacterBody2D
 var gravity = 2500
-enum{IDLE,ATTACK}
-var state = IDLE
-@onready var anim:AnimationPlayer = $Anim
-@onready var texture:Sprite2D = $Texture
-@onready var tempo:Timer = $Tempo
+enum{PARADO,ATACANDO}
+var state = PARADO
+@onready var anim:AnimationPlayer = get_node("Anim")
+@onready var texture:Sprite2D = get_node("Texture")
+@onready var tempo:Timer = get_node("Tempo")
 @export var inimigo:PackedScene
+var vida = 120
+var no_ar = true
 func _ready():
 	tempo.start()
 func _physics_process(delta):
-	velocity.y += gravity * delta
+	print(vida)
+	if no_ar:
+		velocity.y += gravity * delta
+		move_and_slide()
 	match state:
-		IDLE:
+		PARADO:
 			Stopped()
-		ATTACK:
+		ATACANDO:
 			Atacando()
-	move_and_slide()
+	if is_on_floor():
+		no_ar = false
+		velocity = Vector2.ZERO
 func Stopped():
 	if anim.current_animation == "Attack":
-		state = ATTACK
+		state = ATACANDO
 		anim.play("Attack")
 func Atacando():
-	if anim.current_animation == "Idle":
-		state = IDLE
+	if anim.current_animation == "PARADO":
+		state = PARADO
 		anim.play("Idle")
 
 func Animacao_ataque():
@@ -32,7 +39,7 @@ func Animacao_ataque():
 		enemy.scale = Vector2(1.8,1.8)
 		get_parent().add_child(enemy)
 		enemy.add_to_group("Enemies")
-
+		enemy.name = "Inimigo"
 func _on_tempo_timeout():
 	if anim.current_animation == "Idle":
 		anim.play("Attack")
